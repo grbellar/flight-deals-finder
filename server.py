@@ -1,10 +1,13 @@
 from flask import *
 from database_setup import db
 from flask_bootstrap import Bootstrap
+import os
 # NEXT UP: Allow users to register, login, and logout.
 
+load_dotenv('.env')
+
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "ajslkdj092345029384nvntu20857hfgh349"  # needed for Flask CSRF protection
+app.config["SECRET_KEY"] = os.environ.get('FLASK_SECRET_KEY')  # needed for Flask CSRF protection
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///flight-deals.db"
 
 Bootstrap(app)
