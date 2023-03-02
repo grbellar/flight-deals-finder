@@ -1,7 +1,9 @@
 from flask import *
 from database_setup import db
 from flask_bootstrap import Bootstrap
+from dotenv import load_dotenv
 import os
+from forms import RegisterUserForm, LoginForm
 # NEXT UP: Allow users to register, login, and logout.
 
 load_dotenv('.env')
@@ -23,9 +25,11 @@ def home():
     return render_template("index.html")
 
 
+@app.route('/register', methods=['POST', 'GET'])
 def sign_up():
     # for account registration
-    pass
+    form = RegisterUserForm()
+    return render_template('register.html', form=form)
 
 
 def login():
