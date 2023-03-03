@@ -22,7 +22,7 @@ with app.app_context():
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("base.html")
 
 
 @app.route('/register', methods=['POST', 'GET'])
