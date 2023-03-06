@@ -1,10 +1,17 @@
 {% extends "base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
 
 {% block title%}Register your account{% endblock %}
 
 {% block content %}
 <h1>Register</h1>
-    {{ form.csrf_token }}
-    {{ wtf.quick_form(form) }}
+    <form action="{{url_for('sign_up')}}" method="post">
+        {{ form.csrf_token }}
+        
+        {{form.name.label}} {{ form.name }}
+        {{form.email.label}} {{ form.email }}
+        {{form.password.label}} {{ form.password }}
+        
+        {{ form.submit(class="bg-primary") }}
+
+    </form>
 {% endblock %}

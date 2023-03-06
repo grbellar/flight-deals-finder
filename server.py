@@ -1,6 +1,5 @@
 from flask import *
-from database_setup import db
-from flask_bootstrap import Bootstrap
+from database_setup import db, User
 from dotenv import load_dotenv
 import os
 from forms import RegisterUserForm, LoginForm
@@ -11,7 +10,7 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get('FLASK_SECRET_KEY')  # needed for Flask CSRF protection
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///flight-deals.db"
 
-Bootstrap(app)
+# Bootstrap(app)
 db.init_app(app)
 
 
@@ -28,6 +27,15 @@ def home():
 def sign_up():
     # for account registration
     form = RegisterUserForm()
+    if form.validate_on_submit():
+        new_user = User(
+            name=form.name.data,
+            email=form.email.data,
+            password=form.password.data
+        )
+        db.session.add(new_user)
+        db.session.commit()
+        return redirect(url_for('home'))
     return render_template('register.html', form=form)
 
 
