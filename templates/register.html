@@ -1,11 +1,10 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
+{% block title%}Register your account{% endblock %}
+
 {% block content %}
 <h1>Register</h1>
     {{ form.csrf_token }}
     {{ wtf.quick_form(form) }}
 {% endblock %}
-
-<!--TODO: Quit trying to use flask-bootstrap which is outdated and just add bootstrap to my base template and use inheritance on the children. 
-    Makes more sense to me and seems to be what other devs are doing.-->
