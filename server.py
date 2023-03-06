@@ -5,7 +5,8 @@ from dotenv import load_dotenv
 import os
 from forms import RegisterUserForm, LoginForm
 # NEXT UP: Allow users to register, login, and logout.
-
+# IMPORTANT: Save the original spreadsheet functionality somewhere so there is an option to not use web ui. And preserve
+#           original functionality.
 load_dotenv('.env')
 
 app = Flask(__name__)
