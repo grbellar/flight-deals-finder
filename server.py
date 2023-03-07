@@ -29,7 +29,8 @@ def sign_up():
     # for account registration
     form = RegisterUserForm()
     if form.validate_on_submit():
-        pw_hash = flask_bcrypt.generate_password_hash(form.password.data).decode('utf-8')  # bcrypt docs say something about decoding for python3
+        # bcrypt docs say something about decoding for python3
+        pw_hash = flask_bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         new_user = User(
             name=form.name.data,
             email=form.email.data,
@@ -41,9 +42,24 @@ def sign_up():
     return render_template('register.html', form=form)
 
 
+@app.route('/login', methods=['POST', 'GET'])
 def login():
-    # for logging in users
-    pass
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user:  # if email exists in database
+            pw_hash = user.password
+            candidate_pw = form.password.data
+            if flask_bcrypt.check_password_hash(pw_hash, candidate_pw):
+                # TODO: login user
+                print("Success")
+                return redirect(url_for('home'))
+            else:
+                # TODO: handle incorrect password
+                pass
+        else:
+            print('user not found')
+    return render_template('login.html', form=form)
 
 
 def submit_tracking_request():
