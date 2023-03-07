@@ -78,5 +78,7 @@ def view_user_submission_data():
     pass
 
 
+# TODO: Add a 'lowest price so far' page that displays the lowest price we have found for the user's desired city. Would be v cool.
+
 if __name__ == "__main__":
     app.run(debug=True)
