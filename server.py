@@ -10,7 +10,6 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get('FLASK_SECRET_KEY')  # needed for Flask CSRF protection
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///flight-deals.db"
 
-# Bootstrap(app)
 db.init_app(app)
 
 
