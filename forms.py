@@ -14,3 +14,10 @@ class LoginForm(FlaskForm):
     email = EmailField('Email', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
+
+
+class AddFlightTracking(FlaskForm):
+    departure = StringField('Departing city', validators=[DataRequired()])
+    destination = StringField('Destination', validators=[DataRequired()])
+    price = IntegerField("Your desired price", validators=[DataRequired()])
+    submit = SubmitField('Start tracking')
