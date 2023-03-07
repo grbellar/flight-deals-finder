@@ -1,4 +1,5 @@
 from flask import *
+from flask_bcrypt import Bcrypt
 from database_setup import db, User
 from dotenv import load_dotenv
 import os
@@ -7,6 +8,7 @@ from forms import RegisterUserForm, LoginForm
 load_dotenv('.env')
 
 app = Flask(__name__)
+flask_bcrypt = Bcrypt(app)
 app.config["SECRET_KEY"] = os.environ.get('FLASK_SECRET_KEY')  # needed for Flask CSRF protection
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///flight-deals.db"
 
@@ -27,10 +29,11 @@ def sign_up():
     # for account registration
     form = RegisterUserForm()
     if form.validate_on_submit():
+        pw_hash = flask_bcrypt.generate_password_hash(form.password.data).decode('utf-8')  # bcrypt docs say something about decoding for python3
         new_user = User(
             name=form.name.data,
             email=form.email.data,
-            password=form.password.data
+            password=pw_hash
         )
         db.session.add(new_user)
         db.session.commit()
