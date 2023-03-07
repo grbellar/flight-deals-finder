@@ -2,7 +2,7 @@ from flask import *
 from database_setup import db, User
 from dotenv import load_dotenv
 import os
-from forms import RegisterUserForm, LoginForm
+from forms import RegisterUserForm, LoginForm, AddFlightTracking
 
 load_dotenv('.env')
 
@@ -43,9 +43,15 @@ def login():
     pass
 
 
+@app.route('/add-tracking', methods=['POST', 'GET'])
 def submit_tracking_request():
     # for user to submit their own cities and prices to be tracked
-    pass
+    form = AddFlightTracking()
+    if form.validate_on_submit():
+        print(form.departure.data)
+        print(form.destination.data)
+        print(form.price.data)
+    return render_template('add-cities.html', form=form)
 
 
 def view_user_submission_data():
