@@ -1,6 +1,6 @@
 from flask import *
 from flask_bcrypt import Bcrypt
-from database_setup import db, User
+from database_setup import db, User, FlightTrack
 from dotenv import load_dotenv
 import os
 from forms import RegisterUserForm, LoginForm, AddFlightTracking
@@ -69,6 +69,13 @@ def view_tracking():
         print(form.departure.data)
         print(form.destination.data)
         print(form.price.data)
+        new_entry = FlightTrack(
+            departing=form.departure.data,
+            destination=form.destination.data,
+            price=form.price.data,
+        )  # TODO: implement flask_login so I have a current_user object to pass to the database
+        db.session.add(new_entry)
+        db.session.commit()
         return redirect(url_for('view_tracking'))
     return render_template('user-flights.html', form=form)
 
