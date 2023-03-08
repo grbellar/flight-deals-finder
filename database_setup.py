@@ -1,13 +1,14 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
+from flask_login import UserMixin
 
 db = SQLAlchemy()
 
 Base = declarative_base()
 
 
-class User(db.Model, Base):
+class User(UserMixin, db.Model, Base):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(250), nullable=False)
@@ -27,4 +28,3 @@ class FlightTrack(db.Model, Base):
     
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     user = relationship("User", back_populates='flights')
-    
