@@ -1,6 +1,6 @@
 from flask import *
 from flask_bcrypt import Bcrypt
-from flask_login import LoginManager
+from flask_login import LoginManager, login_user
 from database_setup import db, User, FlightTrack
 from dotenv import load_dotenv
 import os
@@ -27,7 +27,7 @@ with app.app_context():
 
 @login_manager.user_loader
 def load_user(user_id):
-    User.get(user_id)
+    return User.query.get(user_id)
 
 
 @app.route("/")
@@ -62,8 +62,9 @@ def login():
             pw_hash = user.password
             candidate_pw = form.password.data
             if flask_bcrypt.check_password_hash(pw_hash, candidate_pw):
-                # TODO: login user
+                login_user(user)
                 print("Success")
+                flash("Login Successfull")  # TODO: update template to get and display flashed messages
                 return redirect(url_for('home'))
             else:
                 # TODO: handle incorrect password
