@@ -1,5 +1,6 @@
 from flask import *
 from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
 from database_setup import db, User, FlightTrack
 from dotenv import load_dotenv
 import os
@@ -8,7 +9,12 @@ from forms import RegisterUserForm, LoginForm, AddFlightTracking
 load_dotenv('.env')
 
 app = Flask(__name__)
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
 flask_bcrypt = Bcrypt(app)
+
 app.config["SECRET_KEY"] = os.environ.get('FLASK_SECRET_KEY')  # needed for Flask CSRF protection
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///flight-deals.db"
 
@@ -17,6 +23,11 @@ db.init_app(app)
 
 with app.app_context():
     db.create_all()
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    User.get(user_id)
 
 
 @app.route("/")
