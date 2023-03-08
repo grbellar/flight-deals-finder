@@ -3,18 +3,49 @@
 {% block title%}Tracked flights{% endblock %}
 
 {% block content %}
-<h1>Your tracked flights</h1>
-    <p>Looks like you're not currently tracking any flights.</p>
-    <p>Add some to below get started!</p>
-
-    <form action="{{url_for('view_tracking')}}" method="post">
-        {{ form.csrf_token }}
+<div class="container">
+    <h5>Hi, {{ current_user.name }}</h5>
+</div>
+<div class="container flight-data">
+    <h4>Your tracked flights</h4>
         
-        {{form.departure.label}} {{ form.departure }}
-        {{form.destination.label}} {{ form.destination }}
-        {{form.price.label}} {{ form.price }}
-        
-        {{ form.submit(class="bg-primary") }}
+        {% if current_user.flights %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Departing city</th>
+                <th>Destination city</th>
+                <th>Your desired price</th>
+            </tr>
+        </thead>
+            <tbody>
+                {% for flight in current_user.flights %}
+                <tr>
+                    <td>{{ flight.departing }}</td>
+                    <td>{{ flight.destination }}</td>
+                    <td>${{ flight.price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        {% else %}
+        <p>Looks like you're not currently tracking any flights.</p>
+        <p>Add some below to get started!</p>
+        {% endif %}
+</div>
 
-    </form>
+    
+    <div class="container">
+        <h4>Add some more flights to track</h4>
+        <form action="{{url_for('view_tracking')}}" method="post">
+            {{ form.csrf_token }}
+            
+            {{ form.departure.label }} {{ form.departure }}
+            {{ form.destination.label }} {{ form.destination }}
+            {{ form.price.label }} {{ form.price }}
+            
+            {{ form.submit(class="bg-primary") }}
+
+    </form></div>
+    
 {% endblock %}
