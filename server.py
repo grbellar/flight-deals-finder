@@ -1,6 +1,6 @@
 from flask import *
 from flask_bcrypt import Bcrypt
-from flask_login import LoginManager, login_user, logout_user, login_required
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from database_setup import db, User, FlightTrack
 from dotenv import load_dotenv
 import os
@@ -50,6 +50,7 @@ def sign_up():
         )
         db.session.add(new_user)
         db.session.commit()
+        login_user(new_user)
         return redirect(url_for('home'))
     return render_template('register.html', form=form)
 
@@ -94,7 +95,8 @@ def view_tracking():
             departing=form.departure.data,
             destination=form.destination.data,
             price=form.price.data,
-        )  # TODO: implement flask_login so I have a current_user object to pass to the database
+            user=current_user
+        )   
         db.session.add(new_entry)
         db.session.commit()
         return redirect(url_for('view_tracking'))
