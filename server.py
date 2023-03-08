@@ -62,7 +62,7 @@ def login():
     return render_template('login.html', form=form)
 
 
-@app.route('/your-flights', methods=['POST', 'GET'])
+@app.route('/your-flights', methods=['POST', 'GET'])  # should probably seperate this out at some point
 def view_tracking():
     form = AddFlightTracking()
     if form.validate_on_submit():
