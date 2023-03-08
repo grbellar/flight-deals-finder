@@ -7,10 +7,10 @@
     <p>Looks like you're not currently tracking any flights.</p>
     <p>Add some to below get started!</p>
 
-    <form action="{{url_for('submit_tracking_request')}}" method="post">
+    <form action="{{url_for('view_tracking')}}" method="post">
         {{ form.csrf_token }}
         
-        {{form.departure.label}} {{ form.departure(name="departure") }}
+        {{form.departure.label}} {{ form.departure }}
         {{form.destination.label}} {{ form.destination }}
         {{form.price.label}} {{ form.price }}
         

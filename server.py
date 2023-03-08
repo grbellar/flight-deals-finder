@@ -62,17 +62,14 @@ def login():
     return render_template('login.html', form=form)
 
 
-@app.route('/add-tracking', methods=['POST'])
-def submit_tracking_request():
-    # for user to submit their own cities and prices to be tracked
-    request.form.get('departure')
-    print(request.form.departure)
-    return redirect(url_for('view_user_submission_data'))
-
-
-@app.route('/your-flights', methods=['GET'])
-def view_user_submission_data():
+@app.route('/your-flights', methods=['POST', 'GET'])
+def view_tracking():
     form = AddFlightTracking()
+    if form.validate_on_submit():
+        print(form.departure.data)
+        print(form.destination.data)
+        print(form.price.data)
+        return redirect(url_for('view_tracking'))
     return render_template('user-flights.html', form=form)
 
 
