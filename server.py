@@ -1,6 +1,6 @@
 from flask import *
 from flask_bcrypt import Bcrypt
-from flask_login import LoginManager, login_user
+from flask_login import LoginManager, login_user, logout_user, login_required
 from database_setup import db, User, FlightTrack
 from dotenv import load_dotenv
 import os
@@ -12,6 +12,7 @@ app = Flask(__name__)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
+login_manager.login_view = "/login"
 
 flask_bcrypt = Bcrypt(app)
 
@@ -74,7 +75,15 @@ def login():
     return render_template('login.html', form=form)
 
 
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
+
+
 @app.route('/your-flights', methods=['POST', 'GET'])  # should probably seperate this out at some point
+@login_required
 def view_tracking():
     form = AddFlightTracking()
     if form.validate_on_submit():
