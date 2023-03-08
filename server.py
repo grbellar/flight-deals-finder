@@ -62,20 +62,18 @@ def login():
     return render_template('login.html', form=form)
 
 
-@app.route('/add-tracking', methods=['POST', 'GET'])
+@app.route('/add-tracking', methods=['POST'])
 def submit_tracking_request():
     # for user to submit their own cities and prices to be tracked
-    form = AddFlightTracking()
-    if form.validate_on_submit():
-        print(form.departure.data)
-        print(form.destination.data)
-        print(form.price.data)
-    return render_template('add-cities.html', form=form)
+    request.form.get('departure')
+    print(request.form.departure)
+    return redirect(url_for('view_user_submission_data'))
 
 
+@app.route('/your-flights', methods=['GET'])
 def view_user_submission_data():
-    # allows users to look at they prices and cities they've entered. Perhaps with editing ability
-    pass
+    form = AddFlightTracking()
+    return render_template('user-flights.html', form=form)
 
 
 # TODO: Add a 'lowest price so far' page that displays the lowest price we have found for the user's desired city. Would be v cool.
