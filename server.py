@@ -41,17 +41,21 @@ def sign_up():
     # for account registration
     form = RegisterUserForm()
     if form.validate_on_submit():
-        # bcrypt docs say something about decoding for python3
-        pw_hash = flask_bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        new_user = User(
-            name=form.name.data,
-            email=form.email.data,
-            password=pw_hash
-        )
-        db.session.add(new_user)
-        db.session.commit()
-        login_user(new_user)
-        return redirect(url_for('view_tracking'))
+        if not User.query.filter_by(email=form.email.data).first():  # if email not taken, create account
+            # bcrypt docs say something about needing to decode for python3
+            pw_hash = flask_bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+            new_user = User(
+                name=form.name.data,
+                email=form.email.data,
+                password=pw_hash
+            )
+            db.session.add(new_user)
+            db.session.commit()
+            login_user(new_user)
+            return redirect(url_for('view_tracking'))
+        else:
+            flash('That email already exists. Try logging in instead.')
+
     return render_template('register.html', form=form)
 
 
@@ -65,14 +69,11 @@ def login():
             candidate_pw = form.password.data
             if flask_bcrypt.check_password_hash(pw_hash, candidate_pw):
                 login_user(user)
-                print("Success")
-                flash("Login Successfull")  # TODO: update template to get and display flashed messages
                 return redirect(url_for('view_tracking'))
             else:
-                # TODO: handle incorrect password
-                pass
+                flash("Incorrect password.")
         else:
-            print('user not found')
+            flash("Email address not found.")
     return render_template('login.html', form=form)
 
 
