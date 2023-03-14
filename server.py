@@ -51,7 +51,7 @@ def sign_up():
         db.session.add(new_user)
         db.session.commit()
         login_user(new_user)
-        return redirect(url_for('home'))
+        return redirect(url_for('view_tracking'))
     return render_template('register.html', form=form)
 
 
@@ -67,7 +67,7 @@ def login():
                 login_user(user)
                 print("Success")
                 flash("Login Successfull")  # TODO: update template to get and display flashed messages
-                return redirect(url_for('home'))
+                return redirect(url_for('view_tracking'))
             else:
                 # TODO: handle incorrect password
                 pass
