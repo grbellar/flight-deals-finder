@@ -9,6 +9,7 @@ from notification_manager import NotificationManager
 
 data_manager = DataManager()
 user_accounts = data_manager.get_sheet_user_data()
+# TODO: rebuild data_manager class to use database instead of google sheets
 
 city_price_tup = data_manager.get_city_price()
 new_search = FlightSearch()
