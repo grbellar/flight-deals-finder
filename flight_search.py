@@ -19,11 +19,11 @@ class FlightSearch:
             "apikey": os.environ.get("KIWI_API_KEY"),
         }
         self.data = {
-            "fly_from": "ICT",
+            "fly_from": "ICT",  # TODO rework this class to pull departing city from database
             "fly_to": "",
             "date_from": today.strftime("%d/%m/%Y"),
             "date_to": six_months_from_now.strftime("%d/%m/%Y"),
-            "nights_in_dst_from": 3,
+            "nights_in_dst_from": 3,  # TODO also need to allow user to select time frame. or maybe not?
             "nights_in_dst_to": 8,
             "flight_type": "round",
             "curr": "USD",
