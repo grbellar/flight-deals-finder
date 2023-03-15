@@ -1,6 +1,7 @@
 import requests
 from dotenv import load_dotenv
 import os
+from database_setup import db, User, FlightTrack
 
 load_dotenv(".env")
 
@@ -20,6 +21,7 @@ class DataManager:
         data = response.json()
         return data
 
+    # Can likely delete this method entirely. See todo in main.py
     def get_sheet_user_data(self):
         response = requests.get(url=self.user_endpoint, headers=self.sheety_headers)
         response.raise_for_status()
