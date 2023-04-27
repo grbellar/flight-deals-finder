@@ -90,9 +90,10 @@ def logout():
 def view_tracking():
     form = AddFlightTracking()
     if form.validate_on_submit():
-        print(form.departure.data)
-        print(form.destination.data)
-        print(form.price.data)
+        #TODO: accessing form data throws an Invalid Argument error
+        # print(form.departure.data)
+        # print(form.destination.data)
+        # print(form.price.data)
         new_entry = FlightTrack(
             departing=form.departure.data,
             destination=form.destination.data,
