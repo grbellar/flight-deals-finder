@@ -10,15 +10,6 @@ import pprint
 # TODO add support for multiple leave locations, like ICT and STL for us poor Wichita folks.
 # TODO add support for user to enter their destination and desired flight price
 
-# TODO rebuild data_manager class to use database instead of google sheets
-# data_manager = DataManager()
-# user_accounts = data_manager.get_sheet_user_data()
-# city_price_tup = data_manager.get_city_price()
-
-# new_search = FlightSearch()
-# new_search.get_iata_codes(city_price_tup)
-# search_data = new_search.search_for_flights()
-
 # TODO This new search logic should read something like, "for every User in database, search for their cheap flights, if found, email User."
 # search data is a list of individual flight searches. one search object for each valid city in google sheet.
 search_list = []
