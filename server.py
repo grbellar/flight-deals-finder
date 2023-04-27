@@ -29,7 +29,6 @@ with app.app_context():
 @login_manager.user_loader
 def load_user(user_id):
     return db.session.get(User, user_id)
-    
 
 
 @app.route("/")
@@ -85,7 +84,7 @@ def logout():
     return redirect(url_for('home'))
 
 
-@app.route('/your-flights', methods=['POST', 'GET'])  # should probably seperate this out at some point
+@app.route('/your-flights', methods=['POST', 'GET'])  # should probably separate this out at some point
 @login_required
 def view_tracking():
     form = AddFlightTracking()
@@ -105,7 +104,14 @@ def view_tracking():
     return render_template('user-flights.html', form=form)
 
 
-# TODO: Add a 'lowest price so far' page that displays the lowest price we have found for the user's desired city. Would be v cool.
+@app.route('/delete-flight/<flight_id>')
+def delete_flight(flight_id):
+    print(flight_id)
+    return redirect(url_for('delete_flight'))
+
+
+# TODO: Add a 'lowest price so far' page that displays the lowest price we have found for the user's desired city.
+#  Would be v cool.
 
 if __name__ == "__main__":
     app.run(debug=True)
