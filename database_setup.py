@@ -18,7 +18,6 @@ class User(UserMixin, db.Model, Base):
     flights = relationship("FlightTrack", back_populates='user')
 
 
-
 class FlightTrack(db.Model, Base):
     __tablename__ = 'tracking'
     id = db.Column(db.Integer, primary_key=True)
