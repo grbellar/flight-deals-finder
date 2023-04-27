@@ -10,8 +10,7 @@ import pprint
 # TODO add support for multiple leave locations, like ICT and STL for us poor Wichita folks.
 # TODO add support for user to enter their destination and desired flight price
 
-# TODO This new search logic should read something like, "for every User in database, search for their cheap flights, if found, email User."
-# search data is a list of individual flight searches. one search object for each valid city in google sheet.
+# This new search logic should read something like, "for every User in database, search for their cheap flights, if found, email User."
 search_list = []
 with app.app_context():
     users = db.session.query(User).all()
