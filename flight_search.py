@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv("./.env")
 today = datetime.now()
-six_months_from_now = today + timedelta(days=180)  # nifty way to create new date objects using a specified time frame
+six_months_from_now = today + timedelta(days=365)  # nifty way to create new date objects using a specified time frame
 
 
 class FlightSearch:
