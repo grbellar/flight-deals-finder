@@ -1,7 +1,7 @@
 from flight_search import FlightSearch
 from flight_data import FlightData
 from notification_manager import NotificationManager
-from database_setup import db, User, FlightTrack
+from database_setup import db, User
 from server import app
 import pprint
 
