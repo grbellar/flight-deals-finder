@@ -6,8 +6,6 @@ from server import app
 import pprint
 
 # TODO add support for layovers (non-direct flights)
-# TODO add support for multiple leave locations, like ICT and STL for us poor Wichita folks.
-# TODO add support for user to enter their destination and desired flight price
 
 # This new search logic should read something like, "for every User in database, search for their cheap flights, if found, email User."
 with app.app_context():
