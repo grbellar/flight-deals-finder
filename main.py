@@ -20,12 +20,8 @@ with app.app_context():
                     if flight['data'][0]['price'] <= flight["my_price"]:
                         structured_data = FlightData(flight).get_dict()
                         pprint.pprint(structured_data)
-                        # I believe this currently sends an email to all users for every cheap flight found.
-                        # TODO This will need to be re-worked completely to only send to user that is tied to the 
-                        # cheap flight. Relational databases should make this easy.
-                        # for i in range(len(user_accounts["users"])):
-                        #     current_user = user_accounts["users"][i]["email"]
-                        #     send_notification = NotificationManager(structured_data).send_email_notification(current_user)
+                        current_user = user.email
+                        send_notification = NotificationManager(structured_data).send_email_notification(current_user)
 
 
 
