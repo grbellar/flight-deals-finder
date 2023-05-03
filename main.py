@@ -11,11 +11,10 @@ import pprint
 with app.app_context():
     users = db.session.query(User).all()
     for user in users:
-        print(user.email)
         for flight in user.flights:
             new_search = FlightSearch()
-            search_data = new_search.search_for_flights(flight.departing, flight.destination, flight.price)
-            for flight in search_data:
+            results = new_search.search_for_flights(flight.departing, flight.destination, flight.price)
+            for flight in results:
                 if flight != "NONE":
                     if flight['data'][0]['price'] <= flight["my_price"]:
                         structured_data = FlightData(flight).get_dict()
