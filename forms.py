@@ -17,7 +17,7 @@ class LoginForm(FlaskForm):
 
 
 class AddFlightTracking(FlaskForm):
-    departure = StringField('Departing city', validators=[DataRequired()])
-    destination = StringField('Destination', validators=[DataRequired()])
+    departure = StringField('Departing airport code', validators=[DataRequired()])
+    destination = StringField('Destination airport code', validators=[DataRequired()])
     price = IntegerField("Your desired price", validators=[DataRequired()])
     submit = SubmitField('Start tracking')
