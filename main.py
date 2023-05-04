@@ -21,6 +21,9 @@ with app.app_context():
                         pprint.pprint(structured_data)
                         current_user = user.email
                         send_notification = NotificationManager(structured_data).send_email_notification(current_user)
+                        print("SENT")
+                    else:
+                        print("No flights found.")
 
 
 
