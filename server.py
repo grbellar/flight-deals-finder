@@ -17,7 +17,7 @@ login_manager.login_view = "/login"
 flask_bcrypt = Bcrypt(app)
 
 app.config["SECRET_KEY"] = os.environ.get('FLASK_SECRET_KEY')  # needed for Flask CSRF protection
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///flight-deals.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DB_URL')
 
 db.init_app(app)
 
@@ -109,4 +109,4 @@ def view_tracking():
 # TODO: Add a 'lowest price so far' page that displays the lowest price we have found for the user's desired city. Would be v cool.
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
