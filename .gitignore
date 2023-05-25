@@ -1,5 +1,5 @@
 .env
-.venv
+.venv-flight-deals
 .idea
 __pycache__/
 instance
